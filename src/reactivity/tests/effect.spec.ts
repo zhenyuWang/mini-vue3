@@ -27,4 +27,32 @@ describe('effect',() => {
     expect(num).toBe(12)
     expect(res).toBe('test runner')
   })
+  it('scheduler',() => {
+    // 1. 通过 effect 的第二个参数传递一个对象，对象中包含 scheduler
+    // 2. effect 初始化调用 第一个参数 fn
+    // 3. 响应式对象更新时，不会调用 fn，而是调用 scheduler
+    // 4. 如果执行 runner，会再次执行 fn
+    let dummy
+    let run
+    const scheduler = jest.fn(() => {
+      run = runner
+    })
+    const obj = reactive({foo:1})
+    const runner = effect(
+      () => {
+        dummy = obj.foo
+      },
+      {scheduler}
+    )
+    expect(scheduler).not.toHaveBeenCalled()
+    // effect 初始化调用 第一个参数 fn
+    expect(dummy).toBe(1)
+    obj.foo++
+    // 响应式对象更新时，不会调用 fn，而是调用 scheduler
+    expect(scheduler).toHaveBeenCalledTimes(1)
+    // fn 不应该被执行
+    expect(dummy).toBe(1)
+    run()
+    expect(dummy).toBe(2)
+  })
 })
