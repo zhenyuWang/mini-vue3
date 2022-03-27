@@ -9,7 +9,7 @@ let activeEffect
 // 是否应该进行依赖收集
 let shouldTrack = false
 
-class ReactiveEffect {
+export class ReactiveEffect {
   private _fn
   public scheduler:Function | undefined
   dep = new Set()
