@@ -30,7 +30,6 @@ class ReactiveEffect {
     const result = this._fn()
     // 重置
     shouldTrack = false;
-    activeEffect = undefined
 
     return result
   }
@@ -44,13 +43,19 @@ class ReactiveEffect {
     }
   }
 }
-function cleanupEffect(effect){
-  effect.deps.forEach((dep:any) => {
-    dep.delete(effect)
-  })
+// 清除依赖
+function cleanupEffect(effect) {
+  const { deps } = effect
+  if (deps.length) {
+    for (let i = 0; i < deps.length; i++) {
+      deps[i].delete(effect)
+    }
+    deps.length = 0
+  }
 }
 
 export function track(target,key){
+  if(!isTracking()) return
   let depsMap = targetsMap.get(target)
   if(depsMap === undefined){
     depsMap = new Map()
@@ -61,8 +66,15 @@ export function track(target,key){
     dep = new Set()
     depsMap.set(key,dep)
   }
-  if(activeEffect===undefined) return
-  if(!shouldTrack) return
+  trackEffects(dep)
+}
+
+function isTracking(){
+  return shouldTrack && activeEffect !== undefined
+}
+
+function trackEffects(dep){
+  if(dep.has(activeEffect)) return
   dep.add(activeEffect)
   activeEffect.deps.add(dep)
 }
