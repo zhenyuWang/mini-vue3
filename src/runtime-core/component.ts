@@ -1,5 +1,5 @@
 import { proxyRefs } from '../reactivity/ref'
-import { isObject } from '../shared'
+import { isObject } from '../shared/index'
 
 export function createComponentInstance(vnode){
   const type = vnode.type

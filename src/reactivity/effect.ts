@@ -1,4 +1,4 @@
-import {extend} from '../../src/shared'
+import {extend} from '../../src/shared/index'
 
 // map 收集所有响应式数据 根据响应式数据的 key 收集所有的依赖
 const targetsMap = new Map()
