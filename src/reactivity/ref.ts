@@ -1,4 +1,4 @@
-import {toReactive} from './reactive'
+import {toReactive,isReactive} from './reactive'
 import {isTracking,trackEffects,triggerEffects} from './effect'
 import {hasChanged} from '../shared'
 
@@ -44,4 +44,19 @@ export function isRef(r:any){
 
 export function unref(ref:any){
   return isRef(ref) ? (ref.value as any) : ref
+}
+
+export function proxyRefs(objectWithRefs){
+  return new Proxy(objectWithRefs,{
+    get(target,key){
+      return unref(Reflect.get(target,key))
+    },
+    set(target,key,value){
+      if(isRef(target[key]) && !isRef(value)){
+        return target[key].value = value
+      }else{
+        return Reflect.set(target,key,value)
+      }
+    }
+  })
 }
