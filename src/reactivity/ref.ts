@@ -6,6 +6,7 @@ class RefImpl {
   private _rawValue
   private _value
   public dep
+  public __v_isRef = true
   constructor(value){
     this._rawValue = value
     this._value = toReactive(value)
@@ -35,4 +36,12 @@ function trackRefValue(ref){
 
 export function ref(value){
   return new RefImpl(value)
+}
+
+export function isRef(r:any){
+  return r.__v_isRef === true
+}
+
+export function unref(ref:any){
+  return isRef(ref) ? (ref.value as any) : ref
 }
