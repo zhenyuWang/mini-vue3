@@ -1,5 +1,6 @@
 import {track,trigger} from './effect'
-import {ReactiveFlags} from './reactive'
+import {reactive,readonly,ReactiveFlags} from './reactive'
+import {isObject} from '../shared'
 
 const get = createGetter()
 const set = createSetter()
@@ -20,21 +21,22 @@ function createGetter(isReadonly=false){
       // 依赖收集
       track(target,key)
     }
+
+    // 处理 nested
+    if(isObject(res)){
+      return isReadonly?readonly(res):reactive(res)
+    }
+
     return res
   }
 }
 
-function createSetter(isReadonly=false){
-  return function get(target,key,value){
-    if(isReadonly){
-
-    }
-    else{
-      const res = Reflect.set(target,key,value)
-      // 触发依赖
-      trigger(target,key)
-      return res
-    }
+function createSetter(){
+  return function set(target,key,value){
+    const res = Reflect.set(target,key,value)
+    // 触发依赖
+    trigger(target,key)
+    return res
   }
 }
 
