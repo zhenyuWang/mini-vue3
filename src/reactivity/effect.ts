@@ -6,6 +6,9 @@ const targetsMap = new Map()
 // 接收当前 effect 实例
 let activeEffect
 
+// 是否应该进行依赖收集
+let shouldTrack = false
+
 class ReactiveEffect {
   private _fn
   public scheduler:Function | undefined
@@ -17,8 +20,19 @@ class ReactiveEffect {
     this.scheduler = scheduler
   }
   run(){
+    // 不需要收集依赖
+    if (!this.active) {
+      return this._fn()
+    }
+    // 需要收集依赖
+    shouldTrack = true
     activeEffect = this
-    return this._fn()
+    const result = this._fn()
+    // 重置
+    shouldTrack = false;
+    activeEffect = undefined
+
+    return result
   }
   stop(){
     if(this.active){
@@ -48,6 +62,7 @@ export function track(target,key){
     depsMap.set(key,dep)
   }
   if(activeEffect===undefined) return
+  if(!shouldTrack) return
   dep.add(activeEffect)
   activeEffect.deps.add(dep)
 }
