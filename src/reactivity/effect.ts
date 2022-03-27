@@ -12,7 +12,7 @@ let shouldTrack = false
 class ReactiveEffect {
   private _fn
   public scheduler:Function | undefined
-  deps = new Set()
+  dep = new Set()
   active = true
   onStop?:Function
   constructor(fn,scheduler?:Function){
@@ -45,9 +45,9 @@ class ReactiveEffect {
 }
 // 清除依赖
 function cleanupEffect(effect) {
-  const { deps } = effect
-  if (deps.size) {
-    deps.forEach(dep => {
+  const { dep } = effect
+  if (dep.size) {
+    dep.forEach(dep => {
       dep.delete(effect)
     });
   }
@@ -68,19 +68,23 @@ export function track(target,key){
   trackEffects(dep)
 }
 
-function isTracking(){
+export function isTracking(){
   return shouldTrack && activeEffect !== undefined
 }
 
-function trackEffects(dep){
+export function trackEffects(dep){
   if(dep.has(activeEffect)) return
   dep.add(activeEffect)
-  activeEffect.deps.add(dep)
+  activeEffect.dep.add(dep)
 }
 
 export function trigger(target,key){
   const depsMap = targetsMap.get(target)
   let dep = depsMap.get(key)
+  triggerEffects(dep)
+}
+
+export function triggerEffects(dep){
   for (const effect of dep) {
     if(effect.scheduler){
       effect.scheduler()
