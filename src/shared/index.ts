@@ -10,3 +10,6 @@ export const hasChanged = (newValue: any, oldValue: any): boolean =>
   !Object.is(newValue, oldValue)
 
 export const isString = (val: any) => typeof val === 'string'
+
+const onRE = /^on[^a-z]/
+export const isOn = (key: string) => onRE.test(key)

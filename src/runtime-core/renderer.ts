@@ -1,4 +1,4 @@
-import { isObject, isString } from '../shared/index'
+import { isOn, isString } from '../shared/index'
 import { ShapeFlags } from '../shared/shapeFlags'
 import {createComponentInstance,setupComponent} from './component'
 
@@ -65,6 +65,11 @@ function mountChildren(vnode,container){
 function patchProp(el,key,value){
   if (key === 'innerHTML' || key === 'textContent') {
     el[key] = value == null ? '' : value
+  }
+
+  if(isOn(key)){
+    const event = key.slice(2).toLowerCase()
+    el.addEventListener(event,value)
   }
 
   if (value === '' || value == null) {
