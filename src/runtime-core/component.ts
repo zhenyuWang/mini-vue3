@@ -1,5 +1,6 @@
 import { proxyRefs } from '../reactivity/ref'
 import { isObject } from '../shared/index'
+import {PublicInstanceProxyHandlers} from './componentPublicInstance'
 
 export function createComponentInstance(vnode){
   const type = vnode.type
@@ -16,11 +17,15 @@ export function setupComponent(instance){
   // initProps()
   // initSlots()
 
-  const setupResult = setupStatefulComponent(instance)
+  setupStatefulComponent(instance)
+
 }
 
 function setupStatefulComponent(instance){
   const Component = instance.type
+
+  // ctx
+  instance.proxy = new Proxy({_:instance},PublicInstanceProxyHandlers)
 
   const {setup} = Component
 
