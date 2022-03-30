@@ -8,7 +8,7 @@ export const Foo = {
     return h('p', {}, [
       renderSlots(this.$slots, 'header', { age }),
       foo,
-      renderSlots(this.$slots, 'default'),
+      renderSlots(this.$slots),
       renderSlots(this.$slots, 'footer')
     ])
   }

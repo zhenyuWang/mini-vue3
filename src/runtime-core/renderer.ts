@@ -1,29 +1,42 @@
-import { isOn, isString } from '../shared/index'
+import { isOn } from '../shared/index'
 import { ShapeFlags } from '../shared/shapeFlags'
 import {createComponentInstance,setupComponent} from './component'
+import { Fragment, Text } from './vnode'
 
 export function render(vnode,container){
   patch(vnode,container)
 }
 
 function patch(vnode,container){
-  const {shapeFlag} = vnode
-  // 处理 text
-  if(isString(vnode)){
-    processText(vnode,container)
+  const {type,shapeFlag} = vnode
+  switch(type){
+    case Text:
+      processText(vnode,container)
+      break
+    case Fragment:
+      processFragment(vnode,container)
+      break
+    default:
+      if(shapeFlag & ShapeFlags.ELEMENT){
+        // 处理 element
+        processElement(vnode,container)
+      }
+      else if(shapeFlag & ShapeFlags.STATEFUL_COMPONENT){
+        // 处理 Component
+        processComponent(vnode,container)
+      }
   }
-  else if(shapeFlag & ShapeFlags.ELEMENT){
-    // 处理 element
-    processElement(vnode,container)
-  }
-  else if(shapeFlag & ShapeFlags.STATEFUL_COMPONENT){
-    // 处理 Component
-    processComponent(vnode,container)
-  }
+
+}
+
+function processFragment(vnode,container) {
+  mountChildren(vnode,container)
 }
 
 function processText(vnode,container){
-  container.textContent = vnode
+  const {children} = vnode
+  const textNode = (vnode.el = document.createTextNode(children))
+  container.append(textNode)
 }
 
 function processElement(vnode,container){
@@ -36,7 +49,7 @@ function mountElement(vnode,container){
   // handle children
   const {children,shapeFlag} = vnode
   if(shapeFlag & ShapeFlags.TEXT_CHILDREN){
-    el.textContent = children
+    processText(vnode,el)
   }else if(shapeFlag & ShapeFlags.ARRAY_CHILDREN){
     mountChildren(vnode,el)
   }
@@ -91,10 +104,7 @@ function mountComponent(initialVNode,container){
 
 function setupRenderEffect(instance,container){
   const {proxy} = instance
-
   const subTree = instance.render.call(proxy)
-
   patch(subTree,container)
-
   instance.vnode.el = subTree.el
 }
