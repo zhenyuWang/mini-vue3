@@ -91,6 +91,7 @@ function mountComponent(initialVNode,container){
 
 function setupRenderEffect(instance,container){
   const {proxy} = instance
+
   const subTree = instance.render.call(proxy)
 
   patch(subTree,container)
