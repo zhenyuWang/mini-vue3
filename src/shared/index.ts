@@ -15,3 +15,20 @@ const onRE = /^on[^a-z]/
 export const isOn = (key: string) => onRE.test(key)
 
 export const hasOwn = (target,key) => Object.prototype.hasOwnProperty.call(target,key)
+
+  // foo => Foo
+  const capitalize = (str:string) => {
+    return str.charAt(0).toUpperCase()+str.slice(1)
+  }
+
+  // add-foo => addFoo
+  export const camlize = (str:string) => {
+    return str.replace(/-(\w)/g,(_,c:string) => {
+      return c?c.toUpperCase():''
+    })
+  }
+
+  // foo => onFoo
+  export const toHandlerKey = (str:string) => {
+    return str?`on${capitalize(str)}`:''
+  }
