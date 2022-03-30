@@ -6,6 +6,8 @@ export const isObject = (val: any) => {
 
 export const isArray = Array.isArray
 
+export const isFunction = (val:any) => typeof val === 'function'
+
 export const hasChanged = (newValue: any, oldValue: any): boolean =>
   !Object.is(newValue, oldValue)
 

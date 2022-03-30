@@ -15,10 +15,5 @@ export const App = {
         }
       })
     ])
-  },
-  setup() {
-    return {
-      msg: 'mini-vue3！'
-    }
   }
 }
