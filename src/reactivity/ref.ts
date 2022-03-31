@@ -1,6 +1,6 @@
-import {toReactive,isReactive} from './reactive'
+import {toReactive} from './reactive'
 import {isTracking,trackEffects,triggerEffects} from './effect'
-import {hasChanged} from '../shared'
+import {hasChanged} from '../shared/index'
 
 class RefImpl {
   private _rawValue
@@ -39,7 +39,7 @@ export function ref(value){
 }
 
 export function isRef(r:any){
-  return r.__v_isRef === true
+  return !!r?.__v_isRef === true
 }
 
 export function unref(ref:any){

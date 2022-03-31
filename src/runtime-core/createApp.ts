@@ -8,7 +8,7 @@ export function createApp(rootComponent){
       // 根容器
       const container = normalizeContainer(containerOrSelector)
       const vnode = createVNode(rootComponent)
-      render(vnode, container)
+      render(vnode, container,null)
     }
   }
 }

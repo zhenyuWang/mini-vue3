@@ -6,13 +6,15 @@ import { shallowReadonly } from '../reactivity/reactive'
 import { emit } from './componentEmit'
 import { initSlots } from './componentSlots'
 
-export function createComponentInstance(vnode){
+export function createComponentInstance(vnode,parent){
   const component = {
     vnode,
+    parent,
     type:vnode.type,
     setupState:{},
     props:{},
     slots:{},
+    provides:parent ? parent.provides : {},
     emit
   }
 
@@ -34,7 +36,6 @@ function setupStatefulComponent(instance){
 
   // ctx
   instance.proxy = new Proxy({_:instance},PublicInstanceProxyHandlers)
-
   const {setup} = Component
 
   if(setup){
