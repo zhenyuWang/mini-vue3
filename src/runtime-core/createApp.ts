@@ -1,14 +1,15 @@
 import {createVNode} from './vnode'
-import {render} from './renderer'
 import { isString } from '../shared/index'
 
-export function createApp(rootComponent){
-  return {
-    mount(containerOrSelector){
-      // 根容器
-      const container = normalizeContainer(containerOrSelector)
-      const vnode = createVNode(rootComponent)
-      render(vnode, container,null)
+export function createAppAPI(render){
+  return function createApp(rootComponent){
+    return {
+      mount(containerOrSelector){
+        // 根容器
+        const container = normalizeContainer(containerOrSelector)
+        const vnode = createVNode(rootComponent)
+        render(vnode, container,null)
+      }
     }
   }
 }
