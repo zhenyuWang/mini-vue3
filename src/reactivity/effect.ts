@@ -81,7 +81,7 @@ export function trackEffects(dep){
 export function trigger(target,key){
   const depsMap = targetsMap.get(target)
   let dep = depsMap.get(key)
-  triggerEffects(dep)
+  dep && triggerEffects(dep)
 }
 
 export function triggerEffects(dep){

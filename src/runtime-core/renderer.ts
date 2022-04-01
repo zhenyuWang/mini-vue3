@@ -3,7 +3,7 @@ import {createComponentInstance,setupComponent} from './component'
 import { Fragment, Text } from './vnode'
 import {createAppAPI} from './createApp'
 import { effect } from '../reactivity/effect'
-
+const EMPTY_OBJ = {}
 
 export function createRenderer(options){
   const {createElement:hostCreateElement,patchProp:hostPatchProp,insert:hostInsert} = options
@@ -47,7 +47,7 @@ export function createRenderer(options){
 
   function processElement(n1,n2,container,parentComponent){
     if(!n1){
-      mountElement(n1,n2,container,parentComponent)
+      mountElement(n2,container,parentComponent)
     }else{
       patchElement(n1,n2,container)
     }
@@ -55,9 +55,34 @@ export function createRenderer(options){
 
   function patchElement(n1,n2,container){
     console.log('patchElement',n1,n2);
+
+    const oldProps = n1.props || EMPTY_OBJ
+    const newProps = n2.props || EMPTY_OBJ
+    const el = n2.el = n1.el
+    patchProps(el,oldProps,newProps)
   }
 
-  function mountElement(n1,n2,container,parentComponent){
+  function patchProps(el,oldProps,newProps){
+    if(oldProps!==newProps){
+      for (const key in newProps) {
+        const prev = oldProps[key]
+        const next = newProps[key]
+        if(prev!==next && key !== 'value'){
+          hostPatchProp(el,key,prev,next)
+        }
+      }
+
+      if(oldProps!==EMPTY_OBJ){
+        for(const key in oldProps){
+          if(!(key in newProps)){
+            hostPatchProp(el,key,oldProps[key],null)
+          }
+        }
+      }
+    }
+  }
+
+  function mountElement(n2,container,parentComponent){
     const el = (n2.el = hostCreateElement(n2.type))
 
     // handle children
@@ -75,6 +100,7 @@ export function createRenderer(options){
         hostPatchProp(
           el,
           key,
+          null,
           props[key]
         )
       }
