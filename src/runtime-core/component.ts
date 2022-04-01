@@ -14,6 +14,8 @@ export function createComponentInstance(vnode,parent){
     setupState:{},
     props:{},
     slots:{},
+    isMounted:false,
+    subTree:{},
     provides:parent ? parent.provides : {},
     emit
   }
@@ -40,6 +42,8 @@ function setupStatefulComponent(instance){
 
   if(setup){
     setCurrentInstance(instance)
+    // 调用 setup 函数
+    // shallowReadonly 将 props 第一层处理为 readonly
     const setupResult = setup(shallowReadonly(instance.props),{
       emit:instance.emit
     })
@@ -52,7 +56,9 @@ function setupStatefulComponent(instance){
 }
 
 function handleSetupResult(instance,setupResult){
+
   if(isObject(setupResult)){
+    // 通过 proxyRefs 处理 setupResult count.value => count 直接获取
     instance.setupState = proxyRefs(setupResult)
   }
 
