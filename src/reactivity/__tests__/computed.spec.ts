@@ -3,7 +3,7 @@ import { computed } from '../computed'
 
 describe('computed',() => {
 
-  it('happy path',() => {
+  test('happy path',() => {
     const user = reactive({
       age:18
     })
@@ -21,7 +21,7 @@ describe('computed',() => {
     // expect(console.warn).toBeCalled()
   })
 
-  it('should compute lazily',() => {
+  test('should compute lazily',() => {
     const value = reactive({
       foo:1
     })

@@ -1,7 +1,7 @@
 import {readonly,reactive,isReadonly,isProxy} from '../reactive'
 describe('readonly',() => {
 
-  it('happy path',() => {
+  test('happy path',() => {
     // not set
     const original = {foo:1}
     const wrapped = readonly(original)
@@ -9,7 +9,7 @@ describe('readonly',() => {
     expect(wrapped.foo).toBe(1)
   })
 
-  it('warn when call set',() => {
+  test('warn when call set',() => {
     // console.warn(...)
 
     console.warn = jest.fn()
@@ -19,7 +19,7 @@ describe('readonly',() => {
     expect(console.warn).toBeCalled()
   })
 
-  it('isReadonly',() => {
+  test('isReadonly',() => {
     const original = {foo:1,bar:{baz:2}}
     const reactiveWrapped = reactive(original)
     const readonlyWrapped = readonly(original)
@@ -30,7 +30,7 @@ describe('readonly',() => {
     expect(isReadonly(readonlyWrapped.bar)).toBe(true)
   })
 
-  it('isProxy',() => {
+  test('isProxy',() => {
     const original = {age:18}
     const wrapped = readonly(original)
     expect(isProxy(original)).toBe(false)

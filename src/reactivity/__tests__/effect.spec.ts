@@ -3,7 +3,7 @@ import {effect,stop} from '../effect'
 
 describe('effect',() => {
 
-  it('happy path',() => {
+  test('happy path',() => {
     const user = reactive({
       age:10
     })
@@ -16,7 +16,7 @@ describe('effect',() => {
     expect(nextAge).toBe(12)
   })
 
-  it('should return runner when call effect',() => {
+  test('should return runner when call effect',() => {
     // effect(fn) 会返回 runner
     // 执行 runner 会执行 fn，并且会返回 fn 的返回值
     let num = 10
@@ -30,7 +30,7 @@ describe('effect',() => {
     expect(res).toBe('test runner')
   })
 
-  it('scheduler',() => {
+  test('scheduler',() => {
     // 1. 通过 effect 的第二个参数传递一个对象，对象中包含 scheduler
     // 2. effect 初始化调用 第一个参数 fn
     // 3. 响应式对象更新时，不会调用 fn，而是调用 scheduler
@@ -59,7 +59,7 @@ describe('effect',() => {
     expect(dummy).toBe(2)
   })
 
-  it('stop',() => {
+  test('stop',() => {
     // 可以通过 stop 解除依赖
     let dummy
     const obj = reactive({prop:1})
@@ -77,7 +77,7 @@ describe('effect',() => {
     expect(dummy).toBe(4)
   })
 
-  it('onStop',() => {
+  test('onStop',() => {
     // onStop => stop 的 回调函数
     const obj = reactive({foo:1})
     const onStop = jest.fn()

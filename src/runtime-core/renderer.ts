@@ -385,7 +385,8 @@ export function createRenderer(options){
   }
 
   function setupRenderEffect(instance,initialVNode,anchor,container){
-    instance.update = effect(() => {
+
+    const componentUpdateFn = () => {
       if(!instance.isMounted){
         console.log('------init------');
         const {proxy} = instance
@@ -408,11 +409,16 @@ export function createRenderer(options){
         patch(prevSubTree,subTree,container,anchor,instance)
 
       }
-    },{
-      scheduler(){
-        queueJob(instance.update)
+    }
+
+    instance.update = effect(
+      componentUpdateFn,
+      {
+        scheduler(){
+          queueJob(instance.update)
+        }
       }
-    })
+    )
   }
 
   return {

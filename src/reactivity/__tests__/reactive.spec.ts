@@ -2,21 +2,21 @@ import { reactive,isReactive,isProxy } from '../reactive'
 
 describe('reactive',() => {
 
-  it('happy path',() => {
+  test('happy path',() => {
     const original = {age:18}
     const observed = reactive(original)
     expect(observed).not.toBe(original)
     expect(observed.age).toBe(18)
   })
 
-  it('isReactive',() => {
+  test('isReactive',() => {
     const original = {age:18}
     const observed = reactive(original)
     expect(isReactive(original)).toBe(false)
     expect(isReactive(observed)).toBe(true)
   })
 
-  it('nested reactive',() => {
+  test('nested reactive',() => {
     const original = {
       nested:{
         foo:1
@@ -30,7 +30,7 @@ describe('reactive',() => {
     expect(isReactive(observed.array[0])).toBe(true)
   })
 
-  it('isProxy',() => {
+  test('isProxy',() => {
     const original = {age:18}
     const observed = reactive(original)
     expect(isProxy(original)).toBe(false)

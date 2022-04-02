@@ -4,12 +4,12 @@ import {ref,isRef,unref,proxyRefs} from '../ref'
 
 describe('ref',() => {
 
-  it('happy path',() => {
+  test('happy path',() => {
     const a = ref(1)
     expect(a.value).toBe(1)
   })
 
-  it('should be reactive',() => {
+  test('should be reactive',() => {
     const a = ref(1)
     let dummy
     let calls = 0
@@ -32,7 +32,7 @@ describe('ref',() => {
     expect(dummy).toBe(2)
   })
 
-  it('should make nested properties reactive',() => {
+  test('should make nested properties reactive',() => {
     const a = ref({
       count:1
     })
@@ -46,7 +46,7 @@ describe('ref',() => {
     expect(dummy).toBe(2)
   })
 
-  it('isRef',() => {
+  test('isRef',() => {
     const a = ref(1)
     const user = reactive({age:18})
 
@@ -55,7 +55,7 @@ describe('ref',() => {
     expect(isRef(user)).toBe(false)
   })
 
-  it('unRef',() => {
+  test('unRef',() => {
     const a = ref(1)
     const user = reactive({age:18})
 
@@ -64,7 +64,7 @@ describe('ref',() => {
     expect(unref(user)).toBe(user)
   })
 
-  it('proxyRefs',() => {
+  test('proxyRefs',() => {
     const user = {
       name:'John',
       age:ref(18)
