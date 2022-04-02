@@ -3,7 +3,7 @@ import { h, ref } from '../../lib/guide-mini-vue.esm.js'
 export const App = {
   name: 'App',
   render() {
-    return h('div', { id: 'root', ...this.props }, [
+    return h('div', { id: 'root', foo: this.props.foo, bar: this.props.bar, baz: this.props.baz }, [
       h('p', {}, `count is  ${this.count}`),
       h('button', { onClick: this.addCount }, 'click'),
       h('button', { onClick: this.changeProps }, 'changeProps'),
@@ -33,7 +33,6 @@ export const App = {
         foo: 'foo'
       }
     }
-    // TODO 实现新增属性响应
     function addProps() {
       props.value.baz = 'baz'
     }
