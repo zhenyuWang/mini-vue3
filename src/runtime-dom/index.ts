@@ -19,15 +19,33 @@ function patchProp(el,key,oldValue,newValue){
     if (newValue === undefined || newValue == null) {
       el.removeAttribute(key)
     }else{
-      console.log(el,key,newValue)
       el.setAttribute(key,newValue)
     }
   }
 }
 
-function insert(el,container){
+function insert(child,parent,anchor){
   console.log('------insert------')
-  container.append(el)
+  parent.insertBefore(child,anchor||null)
+}
+
+function createText(text){
+  return document.createTextNode(text)
+}
+
+function setText(node, text){
+  node.nodeValue = text
+}
+
+function setElementText(el,text){
+  el.textContent = text
+}
+
+function remove(child){
+  const parent = child.parentNode
+  if(parent){
+    parent.removeChild(child)
+  }
 }
 
 let renderer:any = null
@@ -38,7 +56,11 @@ function ensureRenderer() {
     (renderer = createRenderer({
       createElement,
       patchProp,
-      insert
+      insert,
+      createText,
+      setText,
+      setElementText,
+      remove,
     }))
   )
 }

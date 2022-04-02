@@ -15,7 +15,7 @@ const Middle = {
   name: 'Middle',
   setup() {
     provide('foo', 'middle-foo-val')
-    const foo = inject('foo11')
+    const foo = inject('foo')
     return { foo }
   },
   render() {
