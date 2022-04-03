@@ -106,7 +106,7 @@ function parseText(context:any){
   const content = parseTextData(context,endIndex)
 
   return {
-    type:NodeTypes.Text,
+    type:NodeTypes.TEXT,
     content
   }
 }
