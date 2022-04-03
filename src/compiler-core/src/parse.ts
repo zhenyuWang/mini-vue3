@@ -25,6 +25,10 @@ function parseChildren(context){
     }
   }
 
+  if(!node){
+    node = parseText(context)
+  }
+
   nodes.push(node)
 
   return nodes
@@ -41,7 +45,7 @@ function parseInterpolation(context: any){
   // 获取结束位置下标
   const closeIndex = context.source.indexOf(closeDelimiter,openDelimiter.length)
   // 截取插值
-  const rawContent = context.source.slice(0,closeIndex)
+  const rawContent = parseTextData(context,closeIndex)
   const content = rawContent.trim()
   // 更新 context.source
   advanceBy(context,closeIndex+closeDelimiter.length)
@@ -63,6 +67,17 @@ function parseElement(context: any) {
   return element
 }
 
+function parseText(context:any){
+  const content = parseTextData(context,context.source.length)
+
+  advanceBy(context,content.length)
+
+  return {
+    type:NodeTypes.Text,
+    content
+  }
+}
+
 function parseTag(context:any,type:TagType){
   const match:any = /^<\/?([a-z]*)/i.exec(context.source)
   const tag = match[1]
@@ -74,6 +89,14 @@ function parseTag(context:any,type:TagType){
     type:NodeTypes.ELEMENT,
     tag
   }
+}
+
+function parseTextData(context:any,length:number){
+  const content = context.source.slice(0,length)
+
+  advanceBy(context,length)
+
+  return content
 }
 
 function advanceBy(context:any,length:number){
