@@ -33,7 +33,7 @@ describe('Parse',() => {
       const ast = baseParse('some text')
 
       expect(ast.children[0]).toStrictEqual({
-        type:NodeTypes.Text,
+        type:NodeTypes.TEXT,
         content:'some text',
       })
     })
@@ -47,7 +47,7 @@ describe('Parse',() => {
       tag:'div',
       children:[
         {
-          type:NodeTypes.Text,
+          type:NodeTypes.TEXT,
           content:'h1,',
         },
         {
@@ -73,7 +73,7 @@ describe('Parse',() => {
           tag:'p',
           children:[
             {
-              type:NodeTypes.Text,
+              type:NodeTypes.TEXT,
               content:'h1',
             }
           ]

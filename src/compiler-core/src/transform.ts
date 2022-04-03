@@ -1,9 +1,11 @@
-export function transform(root,options){
+export function transform(root,options={}){
   // 获取上下文对象
   const context = createTransformContext(root,options)
 
   // 递归处理 ast
   traverseNode(root,context)
+
+  createRootCodegen(root)
 }
 
 function createTransformContext(root,options){
@@ -34,4 +36,8 @@ function traverseChildren(node,context){
       traverseNode(node,context)
     }
   }
+}
+
+function createRootCodegen(root){
+  root.codegenNode = root.children[0]
 }
