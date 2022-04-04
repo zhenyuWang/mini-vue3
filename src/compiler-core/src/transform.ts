@@ -29,9 +29,14 @@ function createTransformContext(root,options){
 function traverseNode(node,context){
   // 获取外部传入 transforms，并遍历执行
   const nodeTransforms = context.nodeTransforms
+  const exitFns:any[] = []
+
   for(let i = 0;i<nodeTransforms.length;i++){
     const transform = nodeTransforms[i]
-    transform(node)
+    const onExit = transform(node,context)
+    if(onExit){
+      exitFns.push(onExit)
+    }
   }
 
   switch(node.type){
@@ -42,7 +47,10 @@ function traverseNode(node,context){
     case NodeTypes.ELEMENT:
       traverseChildren(node,context)
     break
+  }
 
+  for(let i = exitFns.length-1;i>=0;i--){
+    exitFns[i]()
   }
 
 }
@@ -58,5 +66,10 @@ function traverseChildren(node,context){
 function createRootCodegen(root){
   const { children } = root
   const child = children[0]
-  root.codegenNode = child;
+
+  if(child.type === NodeTypes.ELEMENT){
+    root.codegenNode = child.codegenNode
+  }else{
+    root.codegenNode = child;
+  }
 }
