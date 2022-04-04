@@ -1,6 +1,6 @@
 {
   "name": "mini-vue3",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "lib/guide-mini-vue.cjs.js",
   "module": "lib/guide-mini-vue.esm.js",
   "repository": "https://github.com/zhenyuWang/mini-vue3.git",
