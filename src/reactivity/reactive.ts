@@ -19,6 +19,7 @@ function createActiveObject(raw:any,baseHandlers){
     console.warn('target must is object')
     return raw
   }
+
   return new Proxy(raw,baseHandlers)
 }
 

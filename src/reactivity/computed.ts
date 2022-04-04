@@ -20,6 +20,7 @@ class ComputedRefImp {
       this._value = this._effect.run()
       return this._value
     }
+
     return this._value
   }
 }

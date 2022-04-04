@@ -3,7 +3,6 @@ import { isOn } from '../shared/index'
 
 function createElement(type){
   console.log('------createElement------')
-
   return document.createElement(type)
 }
 
@@ -12,6 +11,7 @@ function patchProp(el,key,oldValue,newValue){
   if (key === 'innerHTML' || key === 'textContent') {
     el[key] = newValue == null ? '' : newValue
   }
+
   if(isOn(key)){
     const event = key.slice(2).toLowerCase()
     el.addEventListener(event,newValue)

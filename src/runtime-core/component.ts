@@ -32,7 +32,6 @@ export function setupComponent(instance){
   initSlots(instance,instance.vnode.children)
 
   setupStatefulComponent(instance)
-
 }
 
 function setupStatefulComponent(instance){

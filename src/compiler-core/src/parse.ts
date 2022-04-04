@@ -12,7 +12,6 @@ export function baseParse(content:string){
 }
 
 function parseChildren(context,ancestors:string[]){
-
   const nodes:any[] = []
 
   while(!isEnd(context,ancestors)){
@@ -40,7 +39,6 @@ function parseChildren(context,ancestors:string[]){
 
 function parseInterpolation(context: any){
   // {{message}}
-
   const openDelimiter = '{{'
   const closeDelimiter = '}}'
 
@@ -98,9 +96,9 @@ function parseText(context:any){
 
   for(let i = 0;i<endToken.length;i++){
     const index = context.source.indexOf(endToken[i])
-  if(index!==-1 && index<endIndex){
-    endIndex = index
-  }
+    if(index!==-1 && index<endIndex){
+      endIndex = index
+    }
   }
 
   const content = parseTextData(context,endIndex)

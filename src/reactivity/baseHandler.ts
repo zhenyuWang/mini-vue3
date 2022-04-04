@@ -35,7 +35,6 @@ function createGetter(isReadonly=false,shallow=false){
       return isReadonly?readonly(res):reactive(res)
     }
 
-
     return res
   }
 }
@@ -43,8 +42,10 @@ function createGetter(isReadonly=false,shallow=false){
 function createSetter(){
   return function set(target,key,value){
     const res = Reflect.set(target,key,value)
+
     // 触发依赖
     trigger(target,key)
+
     return res
   }
 }

@@ -27,7 +27,9 @@ export function createRenderer(options){
     if(n1===n2){
       return
     }
+
     const {type,shapeFlag} = n2
+
     switch(type){
       case Text:
         processText(n1,n2,container,anchor)
@@ -80,7 +82,9 @@ export function createRenderer(options){
     const el = n2.el = n1.el
     const oldProps = n1.props || EMPTY_OBJ
     const newProps = n2.props || EMPTY_OBJ
+
     patchChildren(n1,n2,el,null,parentComponent)
+
     patchProps(el,oldProps,newProps)
   }
 
@@ -231,6 +235,7 @@ export function createRenderer(options){
       const nextChild = c2[i]
       keyToNewIndexMap.set(nextChild.key,i)
     }
+
     // 遍历老的
     for(let i = s1;i<=e1;i++){
       const prevChild = c1[i]
@@ -253,7 +258,8 @@ export function createRenderer(options){
           }
         }
       }
-      // 如果好不到对应映射，进行删除
+
+      // 如果找不到对应映射，进行删除
       if(newIndex===undefined){
         hostRemove(prevChild.el)
       }else{
@@ -407,7 +413,6 @@ export function createRenderer(options){
         const prevSubTree = instance.subTree
         instance.subTree = subTree
         patch(prevSubTree,subTree,container,anchor,instance)
-
       }
     }
 

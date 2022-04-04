@@ -24,6 +24,7 @@ export class ReactiveEffect {
     if (!this.active) {
       return this._fn()
     }
+
     // 需要收集依赖
     shouldTrack = true
     activeEffect = this
@@ -55,16 +56,19 @@ function cleanupEffect(effect) {
 
 export function track(target,key){
   if(!isTracking()) return
+
   let depsMap = targetsMap.get(target)
   if(depsMap === undefined){
     depsMap = new Map()
     targetsMap.set(target,depsMap)
   }
+
   let dep = depsMap.get(key)
   if(dep===undefined){
     dep = new Set()
     depsMap.set(key,dep)
   }
+
   trackEffects(dep)
 }
 
@@ -74,6 +78,7 @@ export function isTracking(){
 
 export function trackEffects(dep){
   if(dep.has(activeEffect)) return
+
   dep.add(activeEffect)
   activeEffect.dep.add(dep)
 }
@@ -97,10 +102,12 @@ export function triggerEffects(dep){
 
 export function effect(fn,option?){
   const _effect = new ReactiveEffect(fn,option?.scheduler)
+
   // 将 option 上的东西都给到 _effect
   extend(_effect,option)
 
   _effect.run()
+
   const runner:any = _effect.run.bind(_effect)
   runner.effect = _effect
 

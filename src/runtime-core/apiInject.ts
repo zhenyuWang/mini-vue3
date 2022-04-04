@@ -2,7 +2,8 @@ import { hasOwn, isFunction } from '../shared/index';
 import { getCurrentInstance } from './component';
 
 export function provide(key,value){
-  const currentInstance:any = getCurrentInstance();
+  const currentInstance:any = getCurrentInstance()
+
   if(currentInstance){
     let provides = currentInstance.provides
     const parentProvides = currentInstance.parent?.provides

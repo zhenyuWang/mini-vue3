@@ -10,4 +10,5 @@ function compileToFunction(template){
   const render = new Function('Vue',code)(runtimeDom)
   return render
 }
+
 registerRuntimeCompiler(compileToFunction)

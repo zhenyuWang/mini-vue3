@@ -122,6 +122,7 @@ function genNullable(args){
 function genCompoundExpression(node: any, context: any) {
   const {children} = node
   const {push} = context
+
   for(let i = 0;i<children.length;i++){
     const child = children[i]
     if(isString(child)){

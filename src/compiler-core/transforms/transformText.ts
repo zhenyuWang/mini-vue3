@@ -17,12 +17,14 @@ export function transformText(node){
             const next = children[j]
 
             if(isText(next)){
+
               if(!currentContainer){
                 currentContainer = children[i] = {
                   type:NodeTypes.COMPOUND_EXPRESSION,
                   children:[child]
                 }
               }
+
               currentContainer.children.push(" + ")
               currentContainer.children.push(next)
               children.splice(j,1)
