@@ -7,5 +7,5 @@ export function transformExpression(node){
 }
 
 function processExpression(node){
-  node.content = `ctx.${node.content}`
+  node.content = `_ctx.${node.content}`
 }

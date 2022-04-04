@@ -34,3 +34,5 @@ export const hasOwn = (target,key) => Object.prototype.hasOwnProperty.call(targe
   export const toHandlerKey = (str:string) => {
     return str?`on${capitalize(str)}`:''
   }
+
+  export {toDisplayString} from './toDisplayString'

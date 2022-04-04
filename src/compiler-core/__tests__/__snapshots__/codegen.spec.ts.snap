@@ -10,14 +10,14 @@ return _createElementVNode(\\"div\\" , null , null)
 exports[`codegen happy path 1`] = `
 "const { toDisplayString: _toDisplayString, createElementVNode: _createElementVNode } = Vue
 return function render(_ctx, _cache){
-return _createElementVNode(\\"div\\" , null , \\"hi,\\" + _toDisplayString(ctx.message))
+return _createElementVNode(\\"div\\" , null , \\"hi,\\" + _toDisplayString(_ctx.message))
 }"
 `;
 
 exports[`codegen interpolation 1`] = `
 "const { toDisplayString: _toDisplayString } = Vue
 return function render(_ctx, _cache){
-return _toDisplayString(ctx.message)
+return _toDisplayString(_ctx.message)
 }"
 `;
 
