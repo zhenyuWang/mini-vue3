@@ -1,5 +1,5 @@
-import { hasOwn, isFunction } from '../shared/index';
-import { getCurrentInstance } from './component';
+import { hasOwn, isFunction } from '../shared/index'
+import { getCurrentInstance } from './component'
 
 export function provide(key,value){
   const currentInstance:any = getCurrentInstance()
@@ -18,7 +18,7 @@ export function provide(key,value){
 }
 
 export function inject(key,defaultValue){
-  const instance:any = getCurrentInstance();
+  const instance:any = getCurrentInstance()
   if(instance){
     const provides =
       instance.parent == null

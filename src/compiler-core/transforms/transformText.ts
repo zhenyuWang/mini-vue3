@@ -1,5 +1,5 @@
-import { NodeTypes } from '../src/ast';
-import { isText } from '../src/utils';
+import { NodeTypes } from '../src/ast'
+import { isText } from '../src/utils'
 
 export function transformText(node){
   if(node.type === NodeTypes.ELEMENT){
@@ -25,7 +25,7 @@ export function transformText(node){
                 }
               }
 
-              currentContainer.children.push(" + ")
+              currentContainer.children.push(' + ')
               currentContainer.children.push(next)
               children.splice(j,1)
               j--

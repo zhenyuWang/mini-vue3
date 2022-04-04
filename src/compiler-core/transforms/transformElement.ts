@@ -1,5 +1,4 @@
-import { createVNodeCall, NodeTypes } from '../src/ast';
-import { CREATE_ELEMENT_VNODE } from './../src/runtimeHelpers';
+import { createVNodeCall, NodeTypes } from '../src/ast'
 
 export function transformElement(node,context){
   if(node.type === NodeTypes.ELEMENT){

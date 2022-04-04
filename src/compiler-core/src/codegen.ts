@@ -27,7 +27,7 @@ export function generate(ast){
 
 function createCodegenContext(){
   const context = {
-    code:"",
+    code: '',
     push(source){
       context.code += source
     },
@@ -110,7 +110,7 @@ function genNodeList(nodes,context){
     }
 
     if(i<nodes.length-1){
-      push(" , ")
+      push(' , ')
     }
   }
 }

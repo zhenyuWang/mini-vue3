@@ -30,7 +30,7 @@ export class ReactiveEffect {
     activeEffect = this
     const result = this._fn()
     // 重置
-    shouldTrack = false;
+    shouldTrack = false
 
     return result
   }

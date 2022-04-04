@@ -1,5 +1,5 @@
-import { ShapeFlags } from '../shared/shapeFlags';
-import { isArray } from './../shared/index';
+import { ShapeFlags } from '../shared/shapeFlags'
+import { isArray } from './../shared/index'
 
 export function initSlots(instance,children){
   const {vnode} = instance

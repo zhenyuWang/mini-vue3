@@ -70,6 +70,6 @@ function createRootCodegen(root){
   if(child.type === NodeTypes.ELEMENT){
     root.codegenNode = child.codegenNode
   }else{
-    root.codegenNode = child;
+    root.codegenNode = child
   }
 }
