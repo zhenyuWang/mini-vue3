@@ -116,7 +116,7 @@ function genNodeList(nodes,context){
 }
 
 function genNullable(args){
-  return args.map((arg) => arg || "null")
+  return args.map((arg) => arg ?? "null")
 }
 
 function genCompoundExpression(node: any, context: any) {

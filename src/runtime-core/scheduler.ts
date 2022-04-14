@@ -3,7 +3,7 @@ let isFlushPending = false
 let currentFlushPromise
 
 export function nextTick(fn){
-  const p = currentFlushPromise || Promise.resolve()
+  const p = currentFlushPromise ?? Promise.resolve()
   return fn?p.then(fn):p
 }
 

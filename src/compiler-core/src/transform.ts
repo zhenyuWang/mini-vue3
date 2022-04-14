@@ -16,7 +16,7 @@ export function transform(root,options={}){
 function createTransformContext(root,options){
   const context = {
     root,
-    nodeTransforms:options.nodeTransforms||[],
+    nodeTransforms:options.nodeTransforms ?? [],
     helpers: new Map(),
     helper(key){
       context.helpers.set(key,1)

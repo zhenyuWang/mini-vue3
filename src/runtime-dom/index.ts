@@ -26,7 +26,7 @@ function patchProp(el,key,oldValue,newValue){
 
 function insert(child,parent,anchor){
   console.log('------insert------')
-  parent.insertBefore(child,anchor||null)
+  parent.insertBefore(child,anchor ?? null)
 }
 
 function createText(text){

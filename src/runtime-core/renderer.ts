@@ -81,8 +81,8 @@ export function createRenderer(options){
   function patchElement(n1,n2,parentComponent){
 
     const el = n2.el = n1.el
-    const oldProps = n1.props || EMPTY_OBJ
-    const newProps = n2.props || EMPTY_OBJ
+    const oldProps = n1.props ?? EMPTY_OBJ
+    const newProps = n2.props ?? EMPTY_OBJ
 
     patchChildren(n1,n2,el,null,parentComponent)
 
